@@ -1,0 +1,40 @@
+
+ <div class="caption">
+    <h3>
+      {{ editando ? 'Editar ' : 'Novo' }} Aluno</h3>
+    <span class="caption-helper">{{ editando ? 'Altere as informações necessárias... ' : 'Por favor insira os dados corretamente...' }}</span>
+  </div>
+  <form #f="ngForm" autocomplete="off" (ngSubmit)="salvar(f)">
+<hr />
+<div class="bg-info clearfix">
+    <button pButton type="submit" class="ui-button-info" label="Salvar" icon="fa-plus"></button>
+</div>
+
+<p-panel>
+    <p-header>
+        <div class="ui-helper-clearfix">
+
+          <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Cadastrar novo aluno..</span>
+            <button routerLink="/alunos" pButton type="button" icon="fa fa-search" class="btn btn-success float-right" label="Pesquisa"></button>
+
+        </div>
+    </p-header>
+    <hr />
+    <br />
+    <span class="ui-float-label">
+        <input  pInputText type="text" [(ngModel)]="aluno.nome" name="nome" ngModel #nome="ngModel" required minlength="5">
+        <label for="float-input">Nome</label>
+      </span>
+      <br />
+
+    <span class="ui-float-label">
+        <input  pInputText type="text" [(ngModel)]="aluno.endereco" name="endereco" ngModel #nome="ngModel" required minlength="5">
+        <label for="float-input">Endereço</label>
+      </span>
+      <br />
+    <p-footer>
+        <button pButton type="submit" class="ui-button-danger" label="Salvar" icon="fa-plus"></button>
+        <button routerLink="/alunos" pButton  icon="fa-list" label="Lisatar alunos" class="ui-button-success"></button>
+    </p-footer>
+</p-panel>
+</form>

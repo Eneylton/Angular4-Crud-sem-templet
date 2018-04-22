@@ -4,27 +4,76 @@ import { ToastyService } from 'ng2-toasty';
 import { ErrorHandlerService } from '../../core/error-handler.service';
 import { ConfirmationService } from 'primeng/components/common/confirmationservice';
 import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
+import { ActivatedRoute } from '@angular/router';
+import { Aluno } from '../../core/model';
+import { CadastroAlunoService } from '../../cadastro-aluno/cadastro-aluno.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-pesquisa-aluno',
   templateUrl: './pesquisa-aluno.component.html',
   styleUrls: ['./pesquisa-aluno.component.css']
 })
-export class PesquisaAlunoComponent  {
+export class PesquisaAlunoComponent implements OnInit  {
 
+  aluno = new Aluno();
   totalRegistros = 0;
   filtro = new AlunoFiltro();
+  exbindoFormularioContato = false;
   alunos = [];
   @ViewChild('tabela') grid;
 
+
+
   constructor(
     private pesquisaService: PesquisaAlunoService,
+    private cadastroAlunoService: CadastroAlunoService,
     private toasty: ToastyService,
+    private route: ActivatedRoute,
     private errorHandler: ErrorHandlerService,
     private confirmation: ConfirmationService
 
   ) { }
 
+  ngOnInit() {
+    const codigoAluno = this.route.snapshot.params['codigo'];
+
+    if (codigoAluno) {
+      this.carregarAluno(codigoAluno);
+    }
+  }
+
+  carregarAluno(codigo: number) {
+    this.cadastroAlunoService.buscarPorCodigo(codigo)
+      .then(aluno => {
+        this.aluno = aluno;
+      });
+  }
+
+  get editando() {
+    return Boolean(this.aluno.id)
+  }
+
+  salvar(form: FormControl) {
+    if (this.editando) {
+      this.cadastroAlunoService.atualizar(this.aluno);
+      form.reset();
+      this.toasty.success('Aluno atualizado com sucesso!');
+    } else {
+
+      this.cadastroAlunoService.adicionar(this.aluno);
+      form.reset();
+      this.pesquisar();
+
+      this.toasty.success('Aluno cadastrado com sucesso!');
+
+    }
+
+  }
+
+  prepararNovoContato() {
+    this.exbindoFormularioContato = true;
+  }
 
 
   pesquisar(pagina = 0) {

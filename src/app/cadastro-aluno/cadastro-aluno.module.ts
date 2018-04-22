@@ -9,6 +9,7 @@ import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
 import { InputMaskModule } from 'primeng/inputmask';
 import { CadastroAlunoComponent } from './cadastro-aluno/cadastro-aluno.component';
+import { ContatosComponent } from './contatos/contatos.component';
 
 
 
@@ -25,6 +26,6 @@ import { CadastroAlunoComponent } from './cadastro-aluno/cadastro-aluno.componen
     InputMaskModule
 
   ],
-  declarations: [CadastroAlunoComponent],exports:[CadastroAlunoComponent]
+  declarations: [CadastroAlunoComponent, ContatosComponent],exports:[CadastroAlunoComponent]
 })
 export class CadastroAlunoModule { }

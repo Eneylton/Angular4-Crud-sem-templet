@@ -6,11 +6,13 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { PanelModule } from 'primeng/panel';
 import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   imports: [
     CommonModule,
     TableModule,
+    DialogModule,
     ButtonModule,
     PanelModule,
     RouterModule,

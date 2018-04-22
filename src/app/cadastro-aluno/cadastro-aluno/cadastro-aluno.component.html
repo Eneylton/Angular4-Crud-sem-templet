@@ -34,86 +34,16 @@
       <br />
     <p-footer>
         <button pButton type="submit" class="ui-button-danger" label="Salvar" icon="fa-plus"></button>
-        <button pButton label="Novo" icon="fa-plus" type="button"
-        class="ui-button-warning" (click)="prepararNovoContato()"></button>
+
     </p-footer>
 </p-panel>
 
 <div class="ui-g-12">
   <p-panel header="Contatos">
-    <div class="ui-g">
-      <div class="ui-g-12">
-        <p-table [value]="aluno.contatos" >
-          <ng-template pTemplate="header">
-            <tr>
-              <th>E-mail</th>
-              <th>Telefone</th>
-              <th class="col-acoes-header">Acões</th>
-            </tr>
-          </ng-template>
-
-          <ng-template pTemplate="body" let-contato  let-rowIndex="rowIndex">
-            <tr>
-
-
-                <td>{{ contato.email }}</td>
-                <td>{{ contato.telefone }}</td>
-
-                <td class="col-acoes">
-                  <button pButton icon="fa-pencil" type="button"
-                    pTooltip="Editar" tooltipPosition="top"
-                    (click)="prepararEdicaoContato(contato, rowIndex)"></button>
-
-
-                    <button pButton icon="fa-trash" type="button"
-                    pTooltip="Excluir" tooltipPosition="top"
-                    (click)="removerContato(rowIndex)"></button>
-                </td>
-            </tr>
-          </ng-template>
-
-          <ng-template pTemplate="emptymessage">
-            <tr>
-              <td colspan="3">
-                Nenhum contato cadastrado
-              </td>
-            </tr>
-          </ng-template>
-        </p-table>
-      </div>
-    </div>
+   <app-contatos [contatos]="aluno.contatos" ></app-contatos>
   </p-panel>
 </div>
 
 </form>
 
-<p-dialog header="Novo Contato" [(visible)]="exbindoFormularioContato"
-  modal="modal" *ngIf="contato">
 
-  <form #frmContato="ngForm" (ngSubmit)="confirmarContato(frmContato)">
-
-      <br />
-
-      <div class="ui-g-12 ui-fluid">
-
-      <span class="ui-float-label">
-                <input  pInputText type="text" [(ngModel)]="contato.email" name="email" ngModel #email="ngModel" required minlength="5">
-                <label for="float-input">email</label>
-              </span>
-
-
-        </div>
-        <br />
-        <div class="ui-g-12 ui-fluid">
-
-
-            <p-inputMask name="telefone" [(ngModel)]="contato.telefone"  telefone="email" ngModel #telefone="ngModel"
-              mask="(99) 99999-999?9"></p-inputMask>
-        </div>
-
-        <div class="ui-g-12">
-        <button icon="fa fa-check"  class="ui-button-info" pButton type="submit" label="Confirmar" ></button>
-        </div>
-    </form>
-
-</p-dialog>

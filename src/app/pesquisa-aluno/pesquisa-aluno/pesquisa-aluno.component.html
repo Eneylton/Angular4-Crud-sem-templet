@@ -10,8 +10,8 @@
         <div class="ui-helper-clearfix">
 
           <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Lista de novos alunos cadastrados..</span>
-            <button routerLink="/alunos/novo" pButton type="button" icon="fa fa-plus" class="btn btn-success float-right" label="Novo Aluno"></button>
-
+          <button pButton label="Novo" icon="fa-plus" type="button"
+          class="ui-button-warning" (click)="prepararNovoContato()"></button>
         </div>
     </p-header>
     <hr />
@@ -70,3 +70,37 @@
       </p-table>
 
   </p-panel>
+  <p-dialog [(visible)]="exbindoFormularioContato"
+     modal="modal" *ngIf="aluno">
+
+     <form #f="ngForm" autocomplete="off" (ngSubmit)="salvar(f)">
+      <hr />
+      <div class="bg-info clearfix">
+          <button pButton type="submit" class="ui-button-info" label="Salvar" icon="fa-plus"></button>
+      </div>
+
+      <p-panel>
+
+
+          <br />
+          <span class="ui-float-label">
+              <input  pInputText type="text" [(ngModel)]="aluno.nome" name="nome" ngModel #nome="ngModel" required minlength="5">
+              <label for="float-input">Nome</label>
+            </span>
+            <br />
+
+          <span class="ui-float-label">
+              <input  pInputText type="text" [(ngModel)]="aluno.endereco" name="endereco" ngModel #nome="ngModel" required minlength="5">
+              <label for="float-input">Endereço</label>
+            </span>
+            <br />
+          <p-footer>
+              <button pButton type="submit" class="ui-button-danger" label="Salvar" icon="fa-plus"></button>
+
+          </p-footer>
+      </p-panel>
+
+
+      </form>
+
+</p-dialog>

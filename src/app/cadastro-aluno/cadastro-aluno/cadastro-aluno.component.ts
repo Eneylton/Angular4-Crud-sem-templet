@@ -15,15 +15,13 @@ import { ToastyService } from 'ng2-toasty';
 export class CadastroAlunoComponent implements OnInit {
 
   aluno = new Aluno();
-  contato: Contato;
-  exbindoFormularioContato = false;
-  contatoIndex: number;
 
-  constructor(private cadastroAlunoService : CadastroAlunoService,
-              private toasty: ToastyService,
-              private route: ActivatedRoute,
-              private title: Title,
-              private errorHandler: ErrorHandlerService) { }
+
+  constructor(private cadastroAlunoService: CadastroAlunoService,
+    private toasty: ToastyService,
+    private route: ActivatedRoute,
+    private title: Title,
+    private errorHandler: ErrorHandlerService) { }
 
   ngOnInit() {
     const codigoAluno = this.route.snapshot.params['codigo'];
@@ -33,35 +31,9 @@ export class CadastroAlunoComponent implements OnInit {
     }
   }
 
-  prepararNovoContato() {
-    this.exbindoFormularioContato = true;
-    this.contato = new Contato();
-    this.contatoIndex = this.aluno.contatos.length;
-  }
-
-  prepararEdicaoContato(contato: Contato, index: number) {
-    this.contato = this.clonarContato(contato);
-    this.exbindoFormularioContato = true;
-    this.contatoIndex = index;
-  }
-
-  confirmarContato(frm: FormControl) {
-    this.aluno.contatos[this.contatoIndex] = this.clonarContato(this.contato);
-
-    this.exbindoFormularioContato = false;
-
-    frm.reset();
-  }
-
-  clonarContato(contato: Contato): Contato {
-    return new Contato(contato.id,contato.email,contato.telefone);
-  }
-
   get editando() {
     return Boolean(this.aluno.id)
   }
-
-
 
   carregarAluno(codigo: number) {
     this.cadastroAlunoService.buscarPorCodigo(codigo)
@@ -84,10 +56,6 @@ export class CadastroAlunoComponent implements OnInit {
 
     }
 
-  }
-
-  removerContato(index: number) {
-    this.aluno.contatos.splice(index, 1);
   }
 
   atualizarTituloEdicao() {
